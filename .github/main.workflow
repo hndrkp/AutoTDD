@@ -9,7 +9,7 @@ action "is-release-branch" {
 }
 
 action "make-release" {
-  uses = "hpi-swa-teaching/AutoTDD@release-action/github-release-action/"
+  uses = "hpi-swa-teaching/AutoTDD/github-release-action@release-action"
   needs = ["is-release-branch"]
   env = {
     TITLE = "Test"
