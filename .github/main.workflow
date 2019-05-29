@@ -16,7 +16,7 @@ action "make-release" {
     TAG = "Test"
     DESCRIPTION = "Test"
     TARGET = "dev"
-    FILE=""
+    FILE="/github-create-release.sh"
     CONTENT_TYPE="text/plain"
   }
   secrets = ["GITHUB_TOKEN"]
