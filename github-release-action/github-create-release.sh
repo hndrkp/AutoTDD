@@ -27,7 +27,7 @@ if [[ -z "$TARGET" ]]; then
 fi
 
 # Ensure that the DESCRIPTION is set
-if [[ -z "$TITLE" ]]; then
+if [[ -z "$DESCRIPTION" ]]; then
   echo "DESCRIPTION env variable not set."
   exit 1
 fi
@@ -50,20 +50,13 @@ if [[ -z "$GITHUB_TOKEN" ]]; then
   exit 1
 fi
 
-echo "All env variables set. Creating Release."
+echo "Creating Release: title: $TITLE, tag: $TAG, target: $TARGET, description: $DESCRIPTION, file: $FILE, content-type: $CONTENT_TYPE"
 
 curl --request POST \
 	  --url "https://api.github.com/repos/$GITHUB_REPOSITORY/releases" \
 	  --header "Authorization: Bearer $GITHUB_TOKEN" \
 	  --header 'Content-Type: application/json' \
-	  --data '{
-		  "tag_name": "$TAG",
-		  "target_commitish": "$TARGET",
-		  "name": "$TITLE",
-		  "body": "$DESCRIPTION",
-		  "draft": false,
-		  "prerelease": false
-		}'
+	  --data '{ "tag_name": "$TAG", "target_commitish": "$TARGET", "name": "$TITLE", "body": "$DESCRIPTION", "draft": false, "prerelease": false }'
 		
 echo "Uploading file."
 		
