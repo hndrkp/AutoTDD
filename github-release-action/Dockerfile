@@ -18,5 +18,5 @@ RUN apt-get update && apt-get install -y \
 RUN	apt-get clean -y
 RUN rm -rf /var/lib/apt/lists/*
 
-ADD ./github-create-release.sh /github-create-release.sh
+ADD github-create-release.sh /github-create-release.sh
 ENTRYPOINT ["/github-create-release.sh"]
