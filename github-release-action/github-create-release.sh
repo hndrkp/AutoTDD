@@ -3,6 +3,8 @@
 # ARGUMENTS
 #	TAG, TITLE, TARGET, DESCRIPTION, FILE, CONTENT_TYPE
 
+echo "Starting action."
+
 set -e
 set -o pipefail
 
@@ -48,6 +50,8 @@ if [[ -z "$GITHUB_TOKEN" ]]; then
   exit 1
 fi
 
+echo "All env variables set. Creating Release."
+
 curl --request POST \
 	  --url "https://api.github.com/repos/$GITHUB_REPOSITORY/releases" \
 	  --header "Authorization: Bearer $GITHUB_TOKEN" \
@@ -61,6 +65,8 @@ curl --request POST \
 		  "prerelease": false
 		}'
 		
+echo "Uploading file."
+		
 RELEASE_ID=$(jq --raw-output '.release.id' $GITHUB_EVENT_PATH)
 curl \
   -sSL \
@@ -70,3 +76,5 @@ curl \
   -H "Content-Type: $CONTENT_TYPE" \
   --upload-file "$FILE" \
   "https://uploads.github.com/repos/${GITHUB_REPOSITORY}/releases/${RELEASE_ID}/assets?name=$(basename $FILE)"
+  
+echo "Process finished."
