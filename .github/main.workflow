@@ -13,10 +13,10 @@ action "make-release" {
   needs = ["is-release-branch"]
   env = {
     TITLE = "Test"
-    TAG = "Test"
+    TAG = "v3.0"
     DESCRIPTION = "Test"
     TARGET = "dev"
-    FILE="/github-create-release.sh"
+    FILE="github-create-release.sh"
     CONTENT_TYPE="text/plain"
   }
   secrets = ["GITHUB_TOKEN"]
