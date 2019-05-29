@@ -52,11 +52,24 @@ fi
 
 echo "Creating Release: title: $TITLE, tag: $TAG, target: $TARGET, description: $DESCRIPTION, file: $FILE, content-type: $CONTENT_TYPE"
 
+JSON='{
+	"tag_name": "@rel_tag@",
+	"target_commitish": "@rel_target@",
+	"name": "@rel_title@",
+	"body": "@rel_description@",
+	"draft": false,
+	"prerelease": false
+}'
+JSON=$(echo "$JSON" | sed "s/@rel_tag@/$TAG/")
+JSON=$(echo "$JSON" | sed "s/@rel_target@/$TARGET/")
+JSON=$(echo "$JSON" | sed "s/@rel_title@/Release $TITLE/")
+JSON=$(echo "$JSON" | sed "s/@rel_description@/$DESCRIPTION/")
+
 curl --request POST \
 	  --url "https://api.github.com/repos/$GITHUB_REPOSITORY/releases" \
 	  --header "Authorization: Bearer $GITHUB_TOKEN" \
 	  --header 'Content-Type: application/json' \
-	  --data '{ "tag_name": "$TAG", "target_commitish": "$TARGET", "name": "$TITLE", "body": "$DESCRIPTION", "draft": false, "prerelease": false }'
+	  --data "$JSON"
 		
 echo "Uploading file."
 		
