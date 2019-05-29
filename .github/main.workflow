@@ -5,6 +5,7 @@ workflow "Development Release" {
 
 action "branch filter" {
   uses = "actions/bin/filter@dev-release"
+  args = "branch dev-release"
 }
 
 action "make release" {
