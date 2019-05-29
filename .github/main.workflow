@@ -15,4 +15,5 @@ action "make-release" {
     VERSION = "Test"
     DESCRIPTION = "Test"
   }
+  secrets = ["GITHUB_TOKEN"]
 }
